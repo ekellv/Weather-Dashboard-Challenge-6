@@ -27,32 +27,34 @@
                 <input type="text" id="search-input" placeholder="Asbury Park, NJ">
                 <input type="submit" id="search-button" class="btn">
             </form>
+            <btn class="city-btn"></btn>
+            <button class="btn" id="clear-storage">Clear Searches</button>
             <ul id="search-history"></ul>
-            <button class="btn clear-storage">Clear Searches</button>
         </div>
         </div>
         <div class="text-center col-sm-12 col-md-6 col-lg-9 ">
             <div class="city-weather">
-            <div class="city-weather-main row">
-            <h1><span id="location-name">Location</span></h1>
-            <h2><span id="todays-date"></span></h2>
+            <div class="row" id="current-weather-main">
+            <h2><span id="searched-location-name"></span></h2>
+            <h3><span id="todays-date"></span></h3>
             <img id="todays-weather"></img>
             <p>Temperature: <span id="current-temp"></span> &deg F</p>
             <p>Wind: <span id="current-wind"></span> MPH</p>
             <p>Humidity: <span id="current-humidity"></span> %</p>
-            <p>UV Index: <span id="current-uv" class="btn btn-md px-4"></span></p>
+            <p>UV Index: <span id="current-uv"></span></p>
             </div>
-            <div class="five-day-forecast">
+            <div class="forecastDIV">
                 <h3>Five Day Forecast</h3>
-                <ul class="forecast-list"></ul>
+                <ul id="five-day-forecast-UL"></ul>
             </div>
             </div>
         </div>
     </div>  
 </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <script src="Assets\JS\weather.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="Assets\JS\weather.js" defer></script>
 </body>
 </html>
