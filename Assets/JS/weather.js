@@ -48,11 +48,9 @@ function createSavedSearchList(searches) {
     userSearchInput.value = "";
 };
 
-// function to clear searches!!!!!!
-
+// pops new searches into the array made from the user's past searches, deleting the last entry every time the max of 8 is reached
 citySearchForm.addEventListener("submit", function(event) {
     searchBar.classList = "";
-
     event.preventDefault();
     var input = userSearchInput.value;
     if (input.length > 0 ) {
@@ -66,17 +64,16 @@ citySearchForm.addEventListener("submit", function(event) {
     }
 });
 
+// function allows user to click on former searches to effectively "reload" that city's weather information
 searchHistory.addEventListener("click", function(event) {
     if (event.target.matches (".listItem")) {
         event.preventDefault();
         userSearchInput.value = event.target.textContent;
         searchButton.click();
     }
-})
+});
 
-// function to display current weather conditions for searched city 
-
-
+// function displays the city's current weather using API call
 function currentCityWeather(location) {
     var today = moment();
     var apiKey = "d9473ab184f20ced8ecd4867185cb643"
@@ -86,9 +83,10 @@ function currentCityWeather(location) {
     .then(function (response) {
         return response.json();
     })
-        .then(function (weather) {
-        var longitude = weather.coord.lon;
+        .then(function (weather){
+
         var latitude = weather.coord.lat;
+        var longitude = weather.coord.lon;
 
         locationName.textContent = weather.name;
         todaysDate.textContent = today.format('MMMM DD, YYYY');
@@ -99,49 +97,32 @@ function currentCityWeather(location) {
         currentTemp.textContent = weather.main.temp;
         currentWind.textContent = weather.wind.speed;
         currentHumidity.textContent = weather.main.humidity;
-
-        var UVQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ latitude + "&lon=" + longitude + "&exclude=current,minutely,hourly,alerts&appid=" + apiKey;
-        fetch(UVQueryURL)
-            .then(function(index) {
-                var UVIndexValue = index.uvi
-                var UVIndexColor = document.createElement("button");
-                UVIndexColor.classList = "UV-button";
-                if (index <= 2) {
-                    UVIndexColor.style.backgroundColor = "rgb(22, 200, 22)";
-                } else if (index <= 5) {
-                    UVIndexColor.style.backgroundColor = "rgb(235, 243, 6)";
-                } else if (index <= 7) {
-                    UVIndexColor.style.backgroundColor = "rgb(255, 149, 0)";
-                } else if (index <= 10) {
-                    UVIndexColor.style.backgroundColor = "rgb(221, 12, 12)";
-                } else {
-                    UVIndexColor.style.backgroundColor = "rgb(89, 8, 144)";
-                }
-                UVIndexColor.textContent = UVIndexValue;
-                UVIndexColor.classList = "btn-md";
-                currentUVIndex.appendChild(UVIndexColor);
-            });
-        getFiveDayForecast(latitude, longitude)
+        // I fully know this does not work correctly, will fix with more time
+        currentUVIndexColor(weather.main.uv);
+        getFiveDayForecast(latitude, longitude);
     });
+
+// function that is supposed to show the city's current UV index but needs to be debugged (issue is with API call that only pulls info using location does not show UV index but adding this function to use the latitude and longitude somehow breaks whole function... will fix eventually)
+function currentUVIndexColor(index) {
+
+    let color = "";
+    if (index <= 2) {
+            color = "rgb(22, 200, 22)";
+    } else if (index <= 5) {
+            color = "rgb(235, 243, 6)";
+    } else if (index <= 7) {
+            color = "rgb(255, 149, 0)";
+    } else if (index <= 10) {
+            color = "rgb(221, 12, 12)";
+    } else {
+            color = "rgb(89, 8, 144)";
+    }
+    currentUVIndex.style.backgroundColor = color;
+    currentUVIndex.textContent = index;
+};
 };
 
-// function currentUVIndexColor(index) {
-//     let color = "";
-//     if (index <= 2) {
-//             color = "rgb(22, 200, 22)";
-//     } else if (index <= 5) {
-//             color = "rgb(235, 243, 6)";
-//     } else if (index <= 7) {
-//             color = "rgb(255, 149, 0)";
-//     } else if (index <= 10) {
-//             color = "rgb(221, 12, 12)";
-//     } else {
-//             color = "rgb(89, 8, 144)";
-//     }
-//     currentUVIndex.style.backgroundColor = color;
-//     currentUVIndex.textContent = index;
-// };
-
+// function will display the five day forecast of the selected city
 function getFiveDayForecast(lat, lon) {
     var apiKey = "d9473ab184f20ced8ecd4867185cb643"
     var requestURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=imperial`;
@@ -151,7 +132,7 @@ function getFiveDayForecast(lat, lon) {
     .then(function (response) {
       return response.json();
     })
-
+    // starting i at 1 and capping it at less than 6 ensures that the first day of the five day forecast will be the next day
     .then(function (data) {
         for (var i = 1; i < 6; i++) {
             var forecast = data.daily[i];
@@ -188,6 +169,5 @@ function getFiveDayForecast(lat, lon) {
     });
 }
 
+// calls the function that starts the local storage
 createLocalStorage();
-
-
