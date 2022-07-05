@@ -13,6 +13,8 @@ body {
     padding: 20px;
 }
 
+/* DIV Element Sizing and Styling */
+
 .header-head-space {
     margin-top: 15px;
 }
@@ -31,6 +33,7 @@ body {
     display: inline-block;
     background-color: rgb(3, 35, 83);
     padding: 35px;
+    margin-top: 15px;     /* this helps align it with the weather container */
     text-align: center;
     flex: 1 1 0;
     border: solid 10px rgb(199, 111, 11);
@@ -39,39 +42,6 @@ body {
 
 #search-input {
     width: 100%;
-}
-
-.btn {
-    background-color: rgb(45, 132, 232);
-    color: rgb(200, 179, 40);
-    font-size: 18px;
-}
-
-#search-button {
-    margin-top: 15px;
-}
-
-#clear-storage {
-    margin-bottom: 15px;
-}
-
-.cityBtn {
-    background-color: rgb(45, 132, 232);
-    color: rgb(200, 179, 40);
-    margin-top: 5px;
-    font-size: 18px;
-    border-radius: 10px;
-    display: inline;
-    width: 100%;
-}
-
-.UV-button {
-    size: 100%;
-}
-
-h2 {
-    padding-bottom: 5px;
-    font-size: 45px;
 }
 
 .city-weather {
@@ -84,18 +54,50 @@ h2 {
     padding: 10px;
 }
 
+/* text styling & sizing */
+
 h1 {
     font-size: 32px;
 }
 
-p {
-    font-size: 20px;
+h2 {
+    padding-bottom: 5px;
+    font-size: 45px;
 }
 
 h3 {
     font-size: 36px;
 }
 
+p {
+    font-size: 20px;
+}
+
+/* button styling */
+
+.btn {
+    background-color: rgb(45, 132, 232);
+    color: rgb(200, 179, 40);
+    font-size: 18px;
+}
+
+#search-button {
+    margin-top: 15px;
+}
+
+.cityBtn {
+    background-color: rgb(45, 132, 232);
+    color: rgb(200, 179, 40);
+    margin-top: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 2px solid rgb(240, 151, 6);
+    display: inline;
+    width: 100%; /* so the buttons don't layer next to each other */ 
+    margin-left: -18px; /* helps visually center the buttons */
+}
+
+/* styling for five day forecast appended elements */
 .forecastDIV ul {
     display: flex;
     flex-wrap: wrap;
@@ -108,6 +110,5 @@ h3 {
 .forecastDIV .fiveDayCard {
     margin: 5px 10px;
     padding: 10px 10px;
-    
     flex: 1 0 150px;
 }
